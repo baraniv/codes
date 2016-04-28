@@ -1,19 +1,14 @@
 #!/bin/bash
+#"slave17" "slave19"
 
-
-declare -a slaves=("slave17" "slave18")
+declare -a slaves=("slave18")
 for i in "${slaves[@]}"
 do
 
 ssh se@"$i" <<ENDSSH
-cd /usr/local/BDA/hadoop/etc/hadoop
-echo | pwd
-echo | rm hdfs-site.xml
-echo | rm yarn-site.xml
-echo "hdfs & yarn deleted"
-echo | wget https://raw.githubusercontent.com/baraniv/Block-Replica-Worker/master/64-1-2/hdfs-site.xml
-echo | wget https://raw.githubusercontent.com/baraniv/Block-Replica-Worker/master/64-1-2/yarn-site.xml
-echo "hdfs & yarn added"
+
+/usr/local/BDA/hadoop/bin/hadoop fs -copyFromLocal /usr/local/BDA/BigDataBench_V3.1_Hadoop_Hive/MicroBenchmarks/data-MicroBenchmarks/in hdfs://slave12:54310/HD1/data-MicroBenchmarks/in
+
 ENDSSH
 
 done
